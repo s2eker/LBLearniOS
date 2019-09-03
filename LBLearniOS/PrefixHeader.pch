@@ -1,0 +1,23 @@
+//
+//  PrefixHeader.pch
+//  LBLearniOS
+//
+//  Created by 李兵 on 2019/1/23.
+//  Copyright © 2019 李兵. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#pragma mark -- Base
+#import "LBBaseVC.h"
+#import "LBBaseTVC.h"
+#import "LBBaseCVC.h"
+
+#pragma mark -- Item
+#import "LBItem.h"
+#import "LBItemsCVC.h"
+#import "LBBaseItemVC.h"
+
+
+#endif
