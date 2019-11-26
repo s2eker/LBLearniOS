@@ -8,6 +8,11 @@
 
 #import "LBItem.h"
 
+/*
+ 记录storyboard中用到的item, 元素名须与 Items.plist文件中Item名字一致.
+*/
+static NSArray *_storyboardItems;
+
 @interface LBItem()
 @property (nonatomic, assign, readwrite)NSInteger depth;
 @property (nonatomic, strong, readwrite)NSMutableArray <LBItem *> *privateSubItems;
@@ -17,6 +22,12 @@
 @end
 
 @implementation LBItem
+#pragma mark -- Load
++ (void)load {
+    _storyboardItems = @[@"AFNetworking",
+                         @"Archive"];
+}
+
 
 #pragma mark -- Init
 - (instancetype)init {
@@ -124,13 +135,13 @@
         [superItem.privateSubItems addObject:i];
     }
 }
-- (NSDictionary *)_showAllItem {
+- (NSDictionary *)_showAllSubItems {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     if (self.subItemsCount > 0) {
         NSMutableArray *arr = [NSMutableArray array];
         for (LBItem *item in self.subItems) {
             if (item.subItemsCount > 0) {
-                NSDictionary *subDic = [item _showAllItem];
+                NSDictionary *subDic = [item _showAllSubItems];
                 [arr addObject:subDic];
             }else {
                 [arr addObject:item.name];
@@ -155,8 +166,12 @@
     return rootItem;
 }
 - (void)showAllItem {
-    NSDictionary *dic = [self _showAllItem];
+    NSDictionary *dic = [self _showAllSubItems];
     NSLog(@"%@", dic);
+}
+- (BOOL)isInStoryboard {
+    BOOL ret = [_storyboardItems containsObject:self.name];
+    return ret;
 }
 
 

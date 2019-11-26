@@ -105,9 +105,15 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     LBItem *item = [self itemWithIndexPath:indexPath];
     if (item.subItemsCount <= 0) {
-        LBBaseItemVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:item.name];
-        vc.item = item;
-        if (vc) {
+        Class CLS = NSClassFromString(item.clsName);
+        if (CLS) {
+            LBBaseItemVC *vc;
+            if (item.isInStoryboard) {
+                vc  = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:item.clsName];
+            }else {
+                vc = [[CLS alloc] init];
+            }
+            vc.item = item;
             [self.navigationController pushViewController:vc animated:YES];
         }else {
             NSLog(@"不存在:%@", item.name);

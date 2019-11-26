@@ -8,6 +8,12 @@
 
 #import "LBBaseModel.h"
 
+/**
+ 为了保证所有项目按照在Items.plist文件中的顺序显示,
+ 故设计数据结构为: 数组:[字典{UI:[Label,...]},...]
+ 其中字典元素只有一个,该字典就代表一个分类,如UI,网络等.如有子目,则在字典的value设为数组
+ */
+
 typedef NS_ENUM(NSInteger, LBLearnLevel) {
     LBLearnLevelUnknown,        //不了解
     LBLearnLevelKnown,          //了解
@@ -61,4 +67,9 @@ typedef NS_ENUM(NSInteger, LBLearnLevel) {
  显示所有技能树
  */
 - (void)showAllItem;
+
+/**
+ 是否在Storyboard中
+*/
+- (BOOL)isInStoryboard;
 @end

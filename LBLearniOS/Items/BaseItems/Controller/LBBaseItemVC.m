@@ -18,7 +18,6 @@
     [super viewDidLoad];
     
     self.title = self.item.name;
-    self.view.backgroundColor = [UIColor whiteColor];
     
 }
 

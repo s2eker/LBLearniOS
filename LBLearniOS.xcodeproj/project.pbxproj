@@ -25,10 +25,17 @@
 		D676FCD4231E1B4700BE60B1 /* LBItemHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D676FCD2231E1B4700BE60B1 /* LBItemHeader.xib */; };
 		D68E333C21FAA9C400278F2D /* Items.plist in Resources */ = {isa = PBXBuildFile; fileRef = D68E333B21FAA9C400278F2D /* Items.plist */; };
 		D68E334621FADFFC00278F2D /* LBLearniOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D68E334521FADFFC00278F2D /* LBLearniOSTests.m */; };
-		D6A01EFD231E03BA00289FA7 /* LBItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D64B12DE21F8734000BED89F /* LBItem.m */; };
 		D6A01EFF231E042F00289FA7 /* LBItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A01EFE231E042F00289FA7 /* LBItemTests.m */; };
+		D6EB3121238CC2CE003EDBFC /* LB_Block_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB3120238CC2CE003EDBFC /* LB_Block_VC.m */; };
+		D6EB3124238D0752003EDBFC /* LB_Archive_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB3123238D0752003EDBFC /* LB_Archive_VC.m */; };
+		D6EB312C238D12D3003EDBFC /* LBExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB312B238D12D3003EDBFC /* LBExceptionHandler.m */; };
+		D6EB312D238D184D003EDBFC /* LBItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D64B12DE21F8734000BED89F /* LBItem.m */; };
+		D6EB3130238D2795003EDBFC /* LBBaseItemTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB312F238D2795003EDBFC /* LBBaseItemTVC.m */; };
+		D6EB3136238D4507003EDBFC /* NSKeyedArchiver+LBAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB3135238D4507003EDBFC /* NSKeyedArchiver+LBAdd.m */; };
+		D6EB3139238D75F3003EDBFC /* LB_Protocal_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB3138238D75F3003EDBFC /* LB_Protocal_VC.m */; };
 		D6FE9203231E3A650017B1A7 /* LBBaseItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FE9202231E3A650017B1A7 /* LBBaseItemVC.m */; };
 		D6FE9206231E3D110017B1A7 /* LB_AFNetworking_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FE9205231E3D110017B1A7 /* LB_AFNetworking_VC.m */; };
+		D6FE9209231E40470017B1A7 /* LB_AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FE9208231E40470017B1A7 /* LB_AFNetworking.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,10 +84,24 @@
 		D68E334521FADFFC00278F2D /* LBLearniOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBLearniOSTests.m; sourceTree = "<group>"; };
 		D68E334721FADFFC00278F2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6A01EFE231E042F00289FA7 /* LBItemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBItemTests.m; sourceTree = "<group>"; };
+		D6EB311F238CC2CE003EDBFC /* LB_Block_VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LB_Block_VC.h; sourceTree = "<group>"; };
+		D6EB3120238CC2CE003EDBFC /* LB_Block_VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LB_Block_VC.m; sourceTree = "<group>"; };
+		D6EB3122238D0752003EDBFC /* LB_Archive_VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LB_Archive_VC.h; sourceTree = "<group>"; };
+		D6EB3123238D0752003EDBFC /* LB_Archive_VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LB_Archive_VC.m; sourceTree = "<group>"; };
+		D6EB312A238D12D3003EDBFC /* LBExceptionHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBExceptionHandler.h; sourceTree = "<group>"; };
+		D6EB312B238D12D3003EDBFC /* LBExceptionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBExceptionHandler.m; sourceTree = "<group>"; };
+		D6EB312E238D2795003EDBFC /* LBBaseItemTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBBaseItemTVC.h; sourceTree = "<group>"; };
+		D6EB312F238D2795003EDBFC /* LBBaseItemTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBBaseItemTVC.m; sourceTree = "<group>"; };
+		D6EB3134238D4507003EDBFC /* NSKeyedArchiver+LBAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSKeyedArchiver+LBAdd.h"; sourceTree = "<group>"; };
+		D6EB3135238D4507003EDBFC /* NSKeyedArchiver+LBAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSKeyedArchiver+LBAdd.m"; sourceTree = "<group>"; };
+		D6EB3137238D75F3003EDBFC /* LB_Protocal_VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LB_Protocal_VC.h; sourceTree = "<group>"; };
+		D6EB3138238D75F3003EDBFC /* LB_Protocal_VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LB_Protocal_VC.m; sourceTree = "<group>"; };
 		D6FE9201231E3A650017B1A7 /* LBBaseItemVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBBaseItemVC.h; sourceTree = "<group>"; };
 		D6FE9202231E3A650017B1A7 /* LBBaseItemVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBBaseItemVC.m; sourceTree = "<group>"; };
 		D6FE9204231E3D110017B1A7 /* LB_AFNetworking_VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LB_AFNetworking_VC.h; sourceTree = "<group>"; };
 		D6FE9205231E3D110017B1A7 /* LB_AFNetworking_VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LB_AFNetworking_VC.m; sourceTree = "<group>"; };
+		D6FE9207231E40470017B1A7 /* LB_AFNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LB_AFNetworking.h; sourceTree = "<group>"; };
+		D6FE9208231E40470017B1A7 /* LB_AFNetworking.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LB_AFNetworking.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +163,8 @@
 		D63838F221F6F32E007D5D4F /* LBLearniOS */ = {
 			isa = PBXGroup;
 			children = (
+				D6EB3129238D10FC003EDBFC /* Other */,
+				D6EB3125238D0E59003EDBFC /* Category */,
 				D638390E21F6F6C1007D5D4F /* Base */,
 				D64B12D021F8727700BED89F /* Items */,
 				D63838F321F6F32E007D5D4F /* AppDelegate.h */,
@@ -229,6 +252,8 @@
 				D64B12D821F8730000BED89F /* LBItemsCVC.m */,
 				D6FE9201231E3A650017B1A7 /* LBBaseItemVC.h */,
 				D6FE9202231E3A650017B1A7 /* LBBaseItemVC.m */,
+				D6EB312E238D2795003EDBFC /* LBBaseItemTVC.h */,
+				D6EB312F238D2795003EDBFC /* LBBaseItemTVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -266,11 +291,37 @@
 			path = LBLearniOSTests;
 			sourceTree = "<group>";
 		};
+		D6EB3125238D0E59003EDBFC /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB3134238D4507003EDBFC /* NSKeyedArchiver+LBAdd.h */,
+				D6EB3135238D4507003EDBFC /* NSKeyedArchiver+LBAdd.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		D6EB3129238D10FC003EDBFC /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB312A238D12D3003EDBFC /* LBExceptionHandler.h */,
+				D6EB312B238D12D3003EDBFC /* LBExceptionHandler.m */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		D6FE91FD231E377D0017B1A7 /* Items */ = {
 			isa = PBXGroup;
 			children = (
 				D6FE9204231E3D110017B1A7 /* LB_AFNetworking_VC.h */,
 				D6FE9205231E3D110017B1A7 /* LB_AFNetworking_VC.m */,
+				D6FE9207231E40470017B1A7 /* LB_AFNetworking.h */,
+				D6FE9208231E40470017B1A7 /* LB_AFNetworking.m */,
+				D6EB311F238CC2CE003EDBFC /* LB_Block_VC.h */,
+				D6EB3120238CC2CE003EDBFC /* LB_Block_VC.m */,
+				D6EB3122238D0752003EDBFC /* LB_Archive_VC.h */,
+				D6EB3123238D0752003EDBFC /* LB_Archive_VC.m */,
+				D6EB3137238D75F3003EDBFC /* LB_Protocal_VC.h */,
+				D6EB3138238D75F3003EDBFC /* LB_Protocal_VC.m */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -407,14 +458,21 @@
 				D64B12C521F871A700BED89F /* LBBaseVC.m in Sources */,
 				D638390321F6F32F007D5D4F /* main.m in Sources */,
 				D64B12D921F8730000BED89F /* LBItemsCVC.m in Sources */,
+				D6EB3136238D4507003EDBFC /* NSKeyedArchiver+LBAdd.m in Sources */,
+				D6EB3139238D75F3003EDBFC /* LB_Protocal_VC.m in Sources */,
 				D6FE9206231E3D110017B1A7 /* LB_AFNetworking_VC.m in Sources */,
+				D6EB3121238CC2CE003EDBFC /* LB_Block_VC.m in Sources */,
 				D64B12C821F871B500BED89F /* LBBaseTVC.m in Sources */,
+				D6EB3130238D2795003EDBFC /* LBBaseItemTVC.m in Sources */,
 				D676FCD3231E1B4700BE60B1 /* LBItemHeader.m in Sources */,
 				D64B12DF21F8734000BED89F /* LBItem.m in Sources */,
 				D63838F521F6F32E007D5D4F /* AppDelegate.m in Sources */,
 				D64B12D521F872D500BED89F /* LBBaseModel.m in Sources */,
+				D6EB312C238D12D3003EDBFC /* LBExceptionHandler.m in Sources */,
 				D649FB7E22164FF4008DD8A3 /* LBItemCell.m in Sources */,
 				D64B12CB21F871C100BED89F /* LBBaseCVC.m in Sources */,
+				D6EB3124238D0752003EDBFC /* LB_Archive_VC.m in Sources */,
+				D6FE9209231E40470017B1A7 /* LB_AFNetworking.m in Sources */,
 				D6FE9203231E3A650017B1A7 /* LBBaseItemVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,7 +481,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6A01EFD231E03BA00289FA7 /* LBItem.m in Sources */,
+				D6EB312D238D184D003EDBFC /* LBItem.m in Sources */,
 				D6A01EFF231E042F00289FA7 /* LBItemTests.m in Sources */,
 				D68E334621FADFFC00278F2D /* LBLearniOSTests.m in Sources */,
 			);
@@ -576,7 +634,9 @@
 			baseConfigurationReference = 058B13095E56916358C44F5F /* Pods-LBLearniOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B4KUTMFF6X;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LBLearniOS/PrefixHeader.pch";
 				INFOPLIST_FILE = LBLearniOS/Info.plist;
@@ -586,6 +646,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.libing.LBLearniOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -595,7 +656,9 @@
 			baseConfigurationReference = 361A549C7358D67189E218BA /* Pods-LBLearniOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B4KUTMFF6X;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LBLearniOS/PrefixHeader.pch";
 				INFOPLIST_FILE = LBLearniOS/Info.plist;
@@ -605,6 +668,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.libing.LBLearniOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

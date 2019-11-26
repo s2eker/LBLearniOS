@@ -1,27 +1,27 @@
 //
-//  LBBaseTVC.m
+//  LBBaseItemTVC.m
 //  LBLearniOS
 //
-//  Created by 李兵 on 2019/1/23.
+//  Created by 李兵 on 2019/11/26.
 //  Copyright © 2019 李兵. All rights reserved.
 //
 
-#import "LBBaseTVC.h"
+#import "LBBaseItemTVC.h"
 
-@interface LBBaseTVC ()
+@interface LBBaseItemTVC ()
 
 @end
 
-@implementation LBBaseTVC
+@implementation LBBaseItemTVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = self.item.name;
 }
 
 #pragma mark - Table view data source
-//
+
 //- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 //#warning Incomplete implementation, return the number of sections
 //    return 0;

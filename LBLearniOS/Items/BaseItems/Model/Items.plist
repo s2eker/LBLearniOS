@@ -3,10 +3,26 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>Skills</key>
+		<array>
+			<dict>
+				<key>Archives and Serializations</key>
+				<array>
+					<string>Archive</string>
+					<string>Serialization</string>
+				</array>
+			</dict>
+			<dict>
+				<key>Protocal</key>
+				<array/>
+			</dict>
+		</array>
+	</dict>
+	<dict>
 		<key>Foundation</key>
 		<array>
 			<dict>
-				<key>UI</key>
+				<key>Block</key>
 				<array/>
 			</dict>
 		</array>

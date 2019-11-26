@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LB_AFNetworking : NSObject
 
++ (instancetype)sharedInstance;
+- (void)download:(NSURL *)url progress:(void(^)(CGFloat fraction, NSInteger completionSize, NSInteger totalSize))progress  completion:(void(^)(NSURL *fileURL))completion;
+
 @end
 
 NS_ASSUME_NONNULL_END

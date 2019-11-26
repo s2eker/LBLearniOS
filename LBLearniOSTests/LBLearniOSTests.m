@@ -7,7 +7,6 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "LBItem.h"
 
 @interface LBLearniOSTests : XCTestCase
 
