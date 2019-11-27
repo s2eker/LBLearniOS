@@ -8,6 +8,153 @@
 
 #import "LB_Archive_VC.h"
 
+@interface LBArchiveM : NSObject
+@end
+@implementation LBArchiveM
+@end
+
+
+@interface LBArchiveModel : NSObject <NSCoding>
+{
+    int _value;
+}
+
+@property (nonatomic, copy)NSString *string;
++ (instancetype)modelWithValue:(int)value string:(NSString *)string;
+@end
+@implementation LBArchiveModel
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeInt:_value forKey:@"value"];
+    [coder encodeObject:self.string forKey:@"string"];
+}
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    int v = [coder decodeIntForKey:@"value"];
+    NSString *s = [coder decodeObjectForKey:@"string"];
+    _value = v;
+    self.string = s;
+    return self;
+}
+- (NSString *)description {
+    return [NSString stringWithFormat:@"class:%@ _value:%d string:%@", self.class, _value, _string];
+}
++ (instancetype)modelWithValue:(int)value string:(NSString *)string {
+    LBArchiveModel *m = [self new];
+    m->_value = value;
+    m.string = string;
+    return m;
+}
+@end
+
+@interface LBArchiveSubModel : LBArchiveModel
+@property (nonatomic, assign)CGFloat value1;
+@end
+@implementation LBArchiveSubModel
+@end
+
+
+@interface LBArchiveTmp : NSObject <NSSecureCoding>
+@property (nonatomic, copy)NSString *text;
++ (instancetype)modelWithText:(NSString *)text;
+@end
+@implementation LBArchiveTmp
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+- (void)encodeWithCoder:(NSCoder *)coder{
+    [coder encodeObject:self.text forKey:@"text"];
+}
+- (instancetype)initWithCoder:(NSCoder *)coder{
+    if (self = [super init]) {
+        self.text = [coder decodeObjectForKey:@"text"];
+    }
+    return self;
+}
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %@>", self.class, self.text];
+}
++ (instancetype)modelWithText:(NSString *)text {
+    LBArchiveTmp *m = [LBArchiveTmp new];
+    m.text = text;
+    return m;
+}
+
+@end
+
+@interface LBArchiveSecureModel : NSObject <NSSecureCoding>
+{
+    int _value;
+}
+
+@property (nonatomic, copy)NSString *string;
+@property (nonatomic, strong)LBArchiveTmp *tmp;
++ (instancetype)modelWithValue:(int)value string:(NSString *)string;
+@end
+@implementation LBArchiveSecureModel
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeInt:_value forKey:@"value"];
+    [coder encodeObject:self.string forKey:@"string"];
+    [coder encodeObject:self.tmp forKey:@"tmp"];
+}
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    if (self = [super init]) {
+        _value = [coder decodeIntForKey:@"value"];
+        self.string = [coder decodeObjectForKey:@"string"];
+        // 反归档 自定义类的对象, 如今, 必须用 - decodeObjectOfClass:forKey: 方法, 否则报错
+//        self.tmp = [coder decodeObjectForKey:@"tmp"];
+        self.tmp = [coder decodeObjectOfClass:LBArchiveTmp.class forKey:@"tmp"];
+    }
+    return self;
+}
+- (NSString *)description {
+    return [NSString stringWithFormat:@"class:%@ _value:%d string:%@ tmp:%@", self.class, _value, self.string, self.tmp];
+}
++ (instancetype)modelWithValue:(int)value string:(NSString *)string {
+    LBArchiveSecureModel *m = [self new];
+    m->_value = value;
+    m.string = string;
+    m.tmp = [LBArchiveTmp modelWithText:@"play"];
+    return m;
+}
+@end
+
+@interface LBArchiveSecureSubModel : LBArchiveSecureModel
+@property (nonatomic, assign)CGFloat value1;
+@end
+@implementation LBArchiveSecureSubModel
+// 子类如果要归档自己独有的实例变量, 需要重写 -encodeWithCoder: 方法
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [super encodeWithCoder:coder];
+    [coder encodeFloat:_value1 forKey:@"value1"];
+}
+
+// 子类如果要反归档自己独有的实例变量, 必须要:
+// 1. 重写 +supportsSecureCoding 的方法, 并返回YES
+// 2. 如果属性中有其它自定义的非值对象类型, 则
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    LBArchiveSecureSubModel *m = [super initWithCoder:coder];
+    m->_value1 = [coder decodeFloatForKey:@"value1"];
+    return m;
+}
+- (NSString *)description {
+    return [NSString stringWithFormat:@"class:%@ _value:%d _value:%lf string:%@", self.class, _value, _value1, self.string];
+}
++ (instancetype)modelWithValue:(int)value string:(NSString *)string {
+    LBArchiveSecureSubModel *m = [super modelWithValue:value string:string];
+    m->_value1 = 55.66;
+    return m;
+}
+@end
+
+
+
+
+
 typedef NS_ENUM(NSUInteger, LBArchiveType) {
     LBArchiveTypeString,
     LBArchiveTypeNumber,
@@ -22,6 +169,13 @@ typedef NS_ENUM(NSUInteger, LBArchiveType) {
     LBArchiveTypeImageView,
     LBArchiveTypeTextView,
     LBArchiveTypeTableView,
+    LBArchiveTypeM,
+    LBArchiveTypeModel,
+    LBArchiveTypeSubModel,
+    LBArchiveTypeTmp,
+    LBArchiveTypeSecureModel,
+    LBArchiveTypeSecureSubModel,
+    
 };
 
 @interface LB_Archive_VC ()
@@ -50,6 +204,13 @@ typedef NS_ENUM(NSUInteger, LBArchiveType) {
                @(LBArchiveTypeImageView):@"UIImageView",
                @(LBArchiveTypeTextView):@"UITextView",
                @(LBArchiveTypeTableView):@"UITableView",
+               @(LBArchiveTypeM):@"LBArchiveM",
+               @(LBArchiveTypeModel):@"LBArchiveModel",
+               @(LBArchiveTypeSubModel):@"LBArchiveSubModel",
+               @(LBArchiveTypeTmp):@"LBArchiveTmp",
+               @(LBArchiveTypeSecureModel):@"LBArchiveSecureModel",
+               @(LBArchiveTypeSecureSubModel):@"LBArchiveSecureSubModel",
+               
     };
     
     _flags = [NSMutableDictionary dictionary];
@@ -75,6 +236,12 @@ typedef NS_ENUM(NSUInteger, LBArchiveType) {
         case LBArchiveTypeImageView: obj = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)]; break;
         case LBArchiveTypeTextView: obj = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)]; break;
         case LBArchiveTypeTableView: obj = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)]; break;
+        case LBArchiveTypeM: obj = [LBArchiveM new]; break;
+        case LBArchiveTypeModel: obj = [LBArchiveModel modelWithValue:10 string:@"model"]; break;
+        case LBArchiveTypeSubModel: obj = [LBArchiveSubModel modelWithValue:11 string:@"subModel"]; break;
+        case LBArchiveTypeTmp: obj = [LBArchiveTmp modelWithText:@"something"]; break;
+        case LBArchiveTypeSecureModel: obj = [LBArchiveSecureModel modelWithValue:10 string:@"secure model"]; break;
+        case LBArchiveTypeSecureSubModel: obj = [LBArchiveSecureSubModel modelWithValue:11 string:@"secure subModel"]; break;
         
         default: break;
     }
@@ -120,7 +287,7 @@ typedef NS_ENUM(NSUInteger, LBArchiveType) {
 
 - (BOOL)_archiveObj:(id) obj to:(NSString *)fileName {
     if (!obj || fileName.length <= 0) {
-        NSLog(@"输入有误, obj: %@ fileName:%@", obj, fileName);
+        NSLog(@"归档,输入有误, obj: %@ fileName:%@", obj, fileName);
         return NO;
     }
     
@@ -133,7 +300,7 @@ typedef NS_ENUM(NSUInteger, LBArchiveType) {
 - (nullable id)_unarchiveObjOfType:(NSString *)type {
     Class cls = NSClassFromString(type);
     if (type.length <= 0 || !cls) {
-        NSLog(@"输入有误, type:%@ cls:%@", type, cls);
+        NSLog(@"反归档,输入有误, type:%@ cls:%@", type, cls);
         return nil;
     }
     
@@ -146,7 +313,7 @@ typedef NS_ENUM(NSUInteger, LBArchiveType) {
 }
 - (BOOL)_writeData:(NSData *)data to:(NSString *)fileName {
     if (!data || fileName.length <= 0) {
-        NSLog(@"输入有误:fileName:%@", fileName);
+        NSLog(@"写入,输入有误:fileName:%@", fileName);
         return NO;
     }
     
