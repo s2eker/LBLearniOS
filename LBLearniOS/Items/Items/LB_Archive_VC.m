@@ -62,10 +62,36 @@
 }
 - (void)encodeWithCoder:(NSCoder *)coder{
     [coder encodeObject:self.text forKey:@"text"];
+    [coder encodeInt:0xffffffff forKey:@"int value"];
+    [coder encodeObject:@[@1, @2, @3] forKey:@"array"];
+    [coder encodeObject:@{@1:@"a", @2:@"b", @3:@"c"} forKey:@"dictionary"];
+    [coder encodeObject:[NSSet setWithObjects:@4, @5, @6, nil] forKey:@"set"];
+    
+    
 }
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super init]) {
         self.text = [coder decodeObjectForKey:@"text"];
+        
+        //测试集合类型, 集合类型和自定义对象一样, 需要指明类, 因为编码器不确定集合里放的是什么类型
+        NSArray *arr = [coder decodeObjectOfClass:NSArray.class forKey:@"array"];
+        NSArray *dic = [coder decodeObjectOfClass:NSDictionary.class forKey:@"dictionary"];
+        NSArray *set = [coder decodeObjectOfClass:NSSet.class forKey:@"set"];
+        NSLog(@"集合类型 arr:%@, dic:%@, set:%@", arr, dic, set);
+        
+        
+        //测试类型不匹配
+        int num = [coder decodeIntForKey:@"int value"];
+        long num1 = [coder decodeIntForKey:@"int value"];
+        NSLog(@"int to long, %x:%lx", num, num1);
+        
+        //测试不存在的key
+        NSLog(@"不存在的key的返回值 noObject:%@", [coder decodeObjectForKey:@"noObject"]);
+        NSLog(@"不存在的key的返回值 noBool:%d", [coder decodeBoolForKey:@"noBool"]);
+        NSLog(@"不存在的key的返回值 noInt:%d", [coder decodeIntForKey:@"noInt"]);
+        NSLog(@"不存在的key的返回值 noFloat:%f", [coder decodeFloatForKey:@"noFloat"]);
+        NSLog(@"不存在的key的返回值 noDouble:%lf", [coder decodeDoubleForKey:@"noDouble"]);
+
     }
     return self;
 }

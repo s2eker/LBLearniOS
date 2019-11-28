@@ -25,7 +25,9 @@ static NSArray *_storyboardItems;
 #pragma mark -- Load
 + (void)load {
     _storyboardItems = @[@"AFNetworking",
-                         @"Archive"];
+                         @"Archive",
+                         @"Serialization",
+                        ];
 }
 
 

@@ -26,6 +26,7 @@
 		D68E333C21FAA9C400278F2D /* Items.plist in Resources */ = {isa = PBXBuildFile; fileRef = D68E333B21FAA9C400278F2D /* Items.plist */; };
 		D68E334621FADFFC00278F2D /* LBLearniOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D68E334521FADFFC00278F2D /* LBLearniOSTests.m */; };
 		D6A01EFF231E042F00289FA7 /* LBItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A01EFE231E042F00289FA7 /* LBItemTests.m */; };
+		D6E5C00F238FBE24005A4629 /* LB_Serialization_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5C00E238FBE24005A4629 /* LB_Serialization_VC.m */; };
 		D6EB3121238CC2CE003EDBFC /* LB_Block_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB3120238CC2CE003EDBFC /* LB_Block_VC.m */; };
 		D6EB3124238D0752003EDBFC /* LB_Archive_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB3123238D0752003EDBFC /* LB_Archive_VC.m */; };
 		D6EB312C238D12D3003EDBFC /* LBExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EB312B238D12D3003EDBFC /* LBExceptionHandler.m */; };
@@ -84,6 +85,8 @@
 		D68E334521FADFFC00278F2D /* LBLearniOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBLearniOSTests.m; sourceTree = "<group>"; };
 		D68E334721FADFFC00278F2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6A01EFE231E042F00289FA7 /* LBItemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBItemTests.m; sourceTree = "<group>"; };
+		D6E5C00D238FBE24005A4629 /* LB_Serialization_VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LB_Serialization_VC.h; sourceTree = "<group>"; };
+		D6E5C00E238FBE24005A4629 /* LB_Serialization_VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LB_Serialization_VC.m; sourceTree = "<group>"; };
 		D6EB311F238CC2CE003EDBFC /* LB_Block_VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LB_Block_VC.h; sourceTree = "<group>"; };
 		D6EB3120238CC2CE003EDBFC /* LB_Block_VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LB_Block_VC.m; sourceTree = "<group>"; };
 		D6EB3122238D0752003EDBFC /* LB_Archive_VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LB_Archive_VC.h; sourceTree = "<group>"; };
@@ -320,6 +323,8 @@
 				D6EB3120238CC2CE003EDBFC /* LB_Block_VC.m */,
 				D6EB3122238D0752003EDBFC /* LB_Archive_VC.h */,
 				D6EB3123238D0752003EDBFC /* LB_Archive_VC.m */,
+				D6E5C00D238FBE24005A4629 /* LB_Serialization_VC.h */,
+				D6E5C00E238FBE24005A4629 /* LB_Serialization_VC.m */,
 				D6EB3137238D75F3003EDBFC /* LB_Protocal_VC.h */,
 				D6EB3138238D75F3003EDBFC /* LB_Protocal_VC.m */,
 			);
@@ -462,6 +467,7 @@
 				D6EB3139238D75F3003EDBFC /* LB_Protocal_VC.m in Sources */,
 				D6FE9206231E3D110017B1A7 /* LB_AFNetworking_VC.m in Sources */,
 				D6EB3121238CC2CE003EDBFC /* LB_Block_VC.m in Sources */,
+				D6E5C00F238FBE24005A4629 /* LB_Serialization_VC.m in Sources */,
 				D64B12C821F871B500BED89F /* LBBaseTVC.m in Sources */,
 				D6EB3130238D2795003EDBFC /* LBBaseItemTVC.m in Sources */,
 				D676FCD3231E1B4700BE60B1 /* LBItemHeader.m in Sources */,
