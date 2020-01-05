@@ -7,5 +7,6 @@ target 'LBLearniOS' do
 
   # Pods for LBLearniOS
   pod 'AFNetworking', '~> 3.2.1'
+  pod 'YYImage', '~> 1.0.4'
 
 end

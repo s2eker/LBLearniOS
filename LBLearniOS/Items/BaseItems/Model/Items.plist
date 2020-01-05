@@ -3,8 +3,18 @@
 <plist version="1.0">
 <array>
 	<dict>
-		<key>Skills</key>
+		<key>Principle</key>
 		<array>
+			<dict>
+				<key>Recycle</key>
+				<array/>
+			</dict>
+			<dict>
+				<key>Thread</key>
+				<array>
+					<string>GCD</string>
+				</array>
+			</dict>
 			<dict>
 				<key>Archives and Serializations</key>
 				<array>
@@ -25,6 +35,12 @@
 				<key>Block</key>
 				<array/>
 			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>UI</key>
+		<array>
+			<string>Image</string>
 		</array>
 	</dict>
 	<dict>

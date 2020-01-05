@@ -27,6 +27,7 @@ static NSArray *_storyboardItems;
     _storyboardItems = @[@"AFNetworking",
                          @"Archive",
                          @"Serialization",
+                         @"Recycle",
                         ];
 }
 
