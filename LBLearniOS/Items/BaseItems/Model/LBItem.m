@@ -15,9 +15,16 @@ static NSArray *_storyboardItems;
 
 @interface LBItem()
 @property (nonatomic, assign, readwrite)NSInteger depth;
-@property (nonatomic, strong, readwrite)NSMutableArray <LBItem *> *privateSubItems;
-@property (nonatomic, strong, readwrite)LBItem *superItem;
+
+@property (nonatomic, strong)NSMutableArray <LBItem *> *privateSubItems;
 @property (nonatomic, strong, readwrite)NSArray <LBItem *> *subItems;
+@property (nonatomic, weak, readwrite)LBItem *superItem;
+@property (nonatomic, weak, readwrite)LBItem *preItem;
+@property (nonatomic, weak, readwrite)LBItem *nexItem;
+
+@property (nonatomic, strong, readwrite)Class vcCls;
+@property (nonatomic, copy, readwrite)NSString *vcClsName;
+@property (nonatomic, assign, readwrite, getter=vcIsFromStoryboar)BOOL vcFromStoryboard;
 
 @end
 
@@ -36,36 +43,20 @@ static NSArray *_storyboardItems;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [self initSet];
+        _depth = -1;
+        _privateSubItems = [NSMutableArray arrayWithCapacity:0];
     }
     return self;
 }
 
-- (void)initSet {
-    _depth = -1;
-    _privateSubItems = [NSMutableArray arrayWithCapacity:0];
-}
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@", @{@"name" : _name ?: @"",
-                                               @"des" : _des ?: @"",
-                                               @"clsName" : _clsName ?: @"",
+    return [NSString stringWithFormat:@"%@", @{@"name" : self.name ?: @"",
+                                               @"des" : self.des ?: @"",
+                                               @"vcClsName" : self.vcClsName ?: @"",
                                                @"level" : self.levelDes,
                                                @"count" : @(self.subItemsCount)
                                                }];
-}
-
-+ (instancetype)modelWithJsonDic:(NSDictionary *)dic {
-    LBItem *i = [LBItem new];
-    i.name = dic[@"name"];
-    i.des = dic[@"des"];
-    i.level = [dic[@"level"] integerValue];;
-    return i;
-}
-+ (instancetype)modelWithName:(NSString *)name {
-    LBItem *i = [LBItem new];
-    i.name = name;
-    return i;
 }
 
 #pragma mark -- Getter
@@ -78,10 +69,7 @@ static NSArray *_storyboardItems;
         default: return @"不了解"; break;
     }
 }
-- (NSInteger)subItemsCount {
-    return self.subItems.count;
-}
-- (BOOL)isLast {
+- (BOOL)isEnd {
     return self.subItems.count <= 0;
 }
 - (NSArray<LBItem *> *)subItems {
@@ -90,15 +78,71 @@ static NSArray *_storyboardItems;
     }
     return _subItems;
 }
-- (NSString *)clsName {
-    if (self.subItemsCount <= 0) {
-        return [NSString stringWithFormat:@"LB_%@_VC", self.name];
+- (NSInteger)subItemsCount {
+    return self.subItems.count;
+}
+- (LBItem *)preItem {
+    if (!_preItem) {
+        NSInteger index = [self.superItem.subItems indexOfObject:self];
+        if (index > 0) {
+            _preItem = self.superItem.subItems[index-1];
+        }
     }
-    return nil;
+    return _preItem;
+}
+- (LBItem *)nexItem {
+    if (!_nexItem) {
+        NSInteger index = [self.superItem.subItems indexOfObject:self];
+        if (index < self.superItem.subItems.count - 1) {
+            _nexItem = self.superItem.subItems[index+1];
+        }
+    }
+    return _nexItem;
+}
+
+
+- (Class)vcCls {
+    if (!_vcCls) {
+        LBItem *item = self;
+        NSMutableString *clsName = [NSMutableString stringWithFormat:@"LB_%@_VC", self.name];
+        Class cls = NSClassFromString(clsName);
+        while (!cls) {
+            item = item.superItem;
+            if (!item) {
+                break;
+            }
+            [clsName insertString:[NSString stringWithFormat:@"_%@", item.name] atIndex:2];
+            cls = NSClassFromString(clsName);
+        }
+        _vcCls = cls;
+    }
+    return _vcCls;
+}
+- (NSString *)vcClsName {
+    if (!_vcClsName) {
+        _vcClsName = NSStringFromClass(self.vcCls);
+    }
+    return _vcClsName;
+}
+- (BOOL)vcIsFromStoryboar {
+    _vcFromStoryboard = [_storyboardItems containsObject:self.name];
+    return _vcFromStoryboard;
 }
 
 
 #pragma mark -- Private
++ (instancetype)_modelWithJsonDic:(NSDictionary *)dic {
+    LBItem *i = [LBItem new];
+    i.name = dic[@"name"];
+    i.des = dic[@"des"];
+    i.level = [dic[@"level"] integerValue];;
+    return i;
+}
++ (instancetype)_modelWithName:(NSString *)name {
+    LBItem *i = [LBItem new];
+    i.name = name;
+    return i;
+}
 - (void)_parseDepth {
     self.depth = 0;
     while (self.subItems.count > 0) {
@@ -117,34 +161,64 @@ static NSArray *_storyboardItems;
     if ([json isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dic = (NSDictionary *)json;
         if (dic.count == 1) {
-            LBItem *i = [LBItem modelWithName:dic.allKeys.firstObject];
+            LBItem *i = [LBItem _modelWithName:dic.allKeys.firstObject];
             [self _parseJson:dic.allValues.firstObject inItem:i];
             [superItem.privateSubItems addObject:i];
+            i.superItem = superItem;
         }else {
-            LBItem *i = [LBItem modelWithJsonDic:dic];
+            LBItem *i = [LBItem _modelWithJsonDic:dic];
             [superItem.privateSubItems addObject:i];
+            i.superItem = superItem;
         }
         
     }else if ([json isKindOfClass:[NSArray class]]) {
         NSArray *arr = (NSArray *)json;
-        if (arr.count > 0) {
-            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [self _parseJson:obj inItem:superItem];
-            }];            
-        }
+        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self _parseJson:obj inItem:superItem];
+        }];
     }else if ([json isKindOfClass:[NSString class]]) {
         NSString *str = (NSString *)json;
-        LBItem *i = [LBItem modelWithName:str];
+        LBItem *i = [LBItem _modelWithName:str];
         [superItem.privateSubItems addObject:i];
+        i.superItem = superItem;
     }
 }
-- (NSDictionary *)_showAllSubItems {
+
+
+#pragma mark - Public
++ (LBItem *)rootItem {
+    static LBItem *rootItem;
+    if (!rootItem) {
+        rootItem = [LBItem _modelWithName:@"Root"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Items" ofType:@"plist"];
+        NSArray *arr = [NSArray arrayWithContentsOfFile:path];
+        [self _parseJson:arr inItem:rootItem];
+        [rootItem _parseDepth];
+    }
+    return rootItem;
+}
+
+
+#pragma mark -- For Test
+- (NSArray *)allEndItems {
+    NSMutableArray *items = [NSMutableArray array];
+    for (LBItem *item in self.subItems) {
+        if (item.isEnd) {
+            [items addObject:item];
+        }else {
+            NSArray *subItems = [item allEndItems];
+            [items addObjectsFromArray:subItems];
+        }
+    }
+    return items.copy;
+}
+- (NSDictionary *)toJson {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     if (self.subItemsCount > 0) {
         NSMutableArray *arr = [NSMutableArray array];
         for (LBItem *item in self.subItems) {
             if (item.subItemsCount > 0) {
-                NSDictionary *subDic = [item _showAllSubItems];
+                NSDictionary *subDic = [item toJson];
                 [arr addObject:subDic];
             }else {
                 [arr addObject:item.name];
@@ -155,27 +229,13 @@ static NSArray *_storyboardItems;
     return dic.copy;
 }
 
-
-#pragma mark -- Public
-+ (LBItem *)rootItem {
-    static LBItem *rootItem;
-    if (!rootItem) {
-        rootItem = [LBItem modelWithName:@"Root"];
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"Items" ofType:@"plist"];
-        NSArray *arr = [NSArray arrayWithContentsOfFile:path];
-        [self _parseJson:arr inItem:rootItem];
-        [rootItem _parseDepth];
+- (NSArray *)allAvailableVCs {
+    NSMutableArray *arr = [NSMutableArray array];
+    for (LBItem *i in [self allEndItems]) {
+        if (i.vcClsName) {
+            [arr addObject:i.vcClsName];            
+        }
     }
-    return rootItem;
+    return arr;
 }
-- (void)showAllItem {
-    NSDictionary *dic = [self _showAllSubItems];
-    NSLog(@"%@", dic);
-}
-- (BOOL)isInStoryboard {
-    BOOL ret = [_storyboardItems containsObject:self.name];
-    return ret;
-}
-
-
 @end

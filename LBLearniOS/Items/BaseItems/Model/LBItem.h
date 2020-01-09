@@ -29,9 +29,6 @@ typedef NS_ENUM(NSInteger, LBLearnLevel) {
  */
 @property (nonatomic, copy)NSString *name;
 @property (nonatomic, copy)NSString *des;
-@property (nonatomic, copy)NSString *clsName;
-
-
 
 /**
  学习程度
@@ -43,33 +40,28 @@ typedef NS_ENUM(NSInteger, LBLearnLevel) {
  深度
  */
 @property (nonatomic, assign, readonly)NSInteger depth;
-@property (nonatomic, assign, readonly, getter=isLast)BOOL last;
+@property (nonatomic, assign, readonly, getter=isEnd)BOOL end;
 
 /**
- 子集技能
+  节点
  */
 @property (nonatomic, strong, readonly)NSArray <LBItem *> *subItems;
 @property (nonatomic, assign, readonly)NSInteger subItemsCount;
-
-/**
- 上层技能
- */
-@property (nonatomic, strong, readonly)LBItem *superItem;
-
-
-/**
- 技能树
- */
+@property (nonatomic, weak, readonly)LBItem *superItem;
+@property (nonatomic, weak, readonly)LBItem *preItem;
+@property (nonatomic, weak, readonly)LBItem *nexItem;
 + (LBItem *)rootItem;
 
-
 /**
- 显示所有技能树
- */
-- (void)showAllItem;
-
-/**
- 是否在Storyboard中
+ 对应的控制器
 */
-- (BOOL)isInStoryboard;
+@property (nonatomic, strong, readonly)Class vcCls;
+@property (nonatomic, copy, readonly)NSString *vcClsName;
+@property (nonatomic, assign, readonly, getter=vcIsFromStoryboar)BOOL vcFromStoryboard;
+
+
+#pragma mark -- For Test
+- (NSArray *)allEndItems;       //所有末端Item
+- (NSDictionary *)toJson;       //转为JSON
+- (NSArray *)allAvailableVCs;   //所有可用的VC
 @end

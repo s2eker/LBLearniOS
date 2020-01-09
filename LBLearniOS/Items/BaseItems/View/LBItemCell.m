@@ -43,6 +43,7 @@
 
 - (void)setItem:(LBItem *)item {
     self.textLabel.text = item.name;
+    self.numLabel.text = @(item.subItemsCount).stringValue;
     if (item.subItemsCount > 0) {
         _numLableWidth.constant = 20;
         _numLabelTrailing.constant = 5;
@@ -50,7 +51,6 @@
         _numLableWidth.constant = 0;
         _numLabelTrailing.constant = 0;
     }
-    self.numLabel.text = @(item.subItemsCount).stringValue;
 }
 
 

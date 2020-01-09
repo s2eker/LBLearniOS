@@ -70,7 +70,7 @@
 - (CGFloat)widthOfItem:(LBItem *)item {
     CGRect rect1 = [item.name boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 30) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
     CGRect rect2 = CGRectIntegral(rect1);
-    CGFloat w = item.isLast ? 0 : 25;
+    CGFloat w = item.isEnd ? 0 : 25;
     return rect2.size.width + 30 + w;
 }
 
@@ -105,13 +105,12 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     LBItem *item = [self itemWithIndexPath:indexPath];
     if (item.subItemsCount <= 0) {
-        Class CLS = NSClassFromString(item.clsName);
-        if (CLS) {
+        if (item.vcCls) {
             LBBaseItemVC *vc;
-            if (item.isInStoryboard) {
-                vc  = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:item.clsName];
+            if (item.vcIsFromStoryboar) {
+                vc  = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:item.vcClsName];
             }else {
-                vc = [[CLS alloc] init];
+                vc = [[item.vcCls alloc] init];
             }
             vc.item = item;
             [self.navigationController pushViewController:vc animated:YES];
