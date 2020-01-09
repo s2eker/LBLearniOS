@@ -6,6 +6,13 @@
 		<key>Principle</key>
 		<array>
 			<dict>
+				<key>Runtime</key>
+				<array>
+					<string>Property</string>
+					<string>MethodSwizzling</string>
+				</array>
+			</dict>
+			<dict>
 				<key>Recycle</key>
 				<array/>
 			</dict>
