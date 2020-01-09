@@ -6,7 +6,8 @@ target 'LBLearniOS' do
   # use_frameworks!
 
   # Pods for LBLearniOS
-  pod 'AFNetworking', '~> 3.2.1'
-  pod 'YYImage', '~> 1.0.4'
+    pod 'AFNetworking', '~> 3.2.1'
+    pod 'YYImage', '~> 1.0.4'
+    pod 'MJExtension', '~> 3.2.1'
 
 end
